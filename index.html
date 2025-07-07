@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Versi Balasan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-white min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 text-center space-y-6">
+    <h1 class="text-3xl font-bold text-gray-800">📦 Auto Reply Generator</h1>
+    <p class="text-gray-600">Silakan pilih versi tampilan balasan otomatis yang ingin kamu buka.</p>
+
+    <div class="grid grid-cols-1 gap-4">
+      <a href="versi1.html" class="block bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl shadow transition">🚀 Versi 1</a>
+      <a href="versi2.html" class="block bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl shadow transition">🎨 Versi 2</a>
+      <a href="versi3.html" class="block bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl shadow transition">⚡ Versi 3</a>
+    </div>
+
+    <div class="bg-gray-100 mt-6 p-4 rounded-xl border border-gray-300">
+      <h2 class="text-sm font-semibold text-gray-500 mb-2">Contoh Balasan Hari Ini 🎉</h2>
+      <p id="randomSample" class="text-lg text-gray-700">Sedang memuat contoh...</p>
+    </div>
+
+    <footer class="text-sm text-gray-400 pt-4 border-t border-gray-200">
+      DESMARÉ &copy; 2025 — All rights reserved
+    </footer>
+  </div>
+
+  <script>
+    const openings = [
+      "Makasih banyak ya, kak!", "Thank you, kak!", "Terima kasih, kak!",
+      "Wahh makasih banget!", "Seneng deh dapet feedback begini~",
+      "Terima kasih yaa!", "Thank youuuu~", "Makasii ya kak!",
+      "Thanks a bunch, kak!", "Kakak terbaik deh!", "You’re the best, kak!",
+      "Hatur nuhun, kak!", "Makasih udah belanja di sini!",
+      "Thanks banget ya, kak!", "Suwun, kak!", "Appreciate it banget, kak!"
+    ];
+
+    const middles = [
+      "Semoga suka terus yaa 🤍", "Semoga cocok dan puas yaa~",
+      "Ditunggu order selanjutnya ya 😊", "Jangan kapok belanja di sini yaa!",
+      "Semoga produknya bermanfaat ya, kak", 
+      "Seneng banget bisa nemenin hari-harimu 🥰", 
+      "Semoga jadi salah satu favoritmu yaa!", 
+      "Repeat order-nya ditunggu nih 😄", 
+      "Makasih udah percaya sama kami 🤗", 
+      "Kalau ada apa-apa tinggal chat aja ya!", 
+      "Semoga hari kakak secerah paket dari kita ✨",
+      "Feedback kayak gini tuh bikin happy banget 😍", 
+      "Kakak keren banget sih 💫", 
+      "Jadi makin semangat jualannya!", 
+      "Duhh melting, makasih yaa 😚", 
+      "Support-nya berharga banget buat kami 🙏", 
+      "Semangat terus juga buat kakak ya!", 
+      "Pesenan kamu tuh bikin kami semangat 1000% 🔥", 
+      "Seneng bisa kasih yang terbaik buat kamu 💖",
+      "Thanks lagi udah ngasih vibes positif 🎉"
+    ];
+
+    const emojis = [
+      "😊", "💖", "🙏", "😍", "🌟", "✨", "🥰", "😄", "💫", "🤗",
+      "🤞", "🎉", "🔥", "😚", "😆", "❤️", "👍", "🎈", "💌", "😺",
+      "💐", "🎁", "📦", "🦜", "😁"
+    ];
+
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateSample() {
+      const opening = getRandom(openings);
+      const middle = getRandom(middles);
+      const emoji = getRandom(emojis);
+      document.getElementById("randomSample").innerText = `${opening} ${middle} ${emoji}`;
+    }
+
+    // Generate on load
+    generateSample();
+  </script>
+</body>
+</html>

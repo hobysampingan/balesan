@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Template Balasan Positif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .generator-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 120px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .result-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #f0f0f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-header h3 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .copy-all-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .message-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .message-item:hover {
+            background-color: #f0f8ff;
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                width: 100%;
+            }
+            
+            input[type="number"] {
+                width: 100%;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Generator Balasan Positif 🌟</h1>
+            <p>Buat template balasan untuk review positif dengan mudah!</p>
+        </div>
+        
+        <div class="content">
+            <div class="generator-section">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="messageCount">Jumlah Pesan:</label>
+                        <input type="number" id="messageCount" min="1" max="500" value="3">
+                    </div>
+                    <button class="btn" onclick="generateMessages()">
+                        ✨ Generate Pesan
+                    </button>
+                </div>
+                
+                <div class="stats" id="stats" style="display: none;">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalMessages">0</span>
+                        <span class="stat-label">Total Pesan</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="uniqueMessages">0</span>
+                        <span class="stat-label">Pesan Unik</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <div class="result-header">
+                    <h3>📝 Hasil Generate</h3>
+                    <button class="btn copy-all-btn" onclick="copyAllMessages()">
+                        📋 Copy Semua
+                    </button>
+                </div>
+                <div class="message-list" id="messageList"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🛍️ Perfect untuk toko online dan marketplace! 🛍️</p>
+        </div>
+    </div>
+
+    <script>
+        // Data sama seperti di Python
+        const openings = [
+            "Makasih banyak ya kak", "Thank you kak", "Terima kasih kak", "Wahh makasih kak", 
+            "Seneng banget deh", "Terima kasih yaa", "Thank youuu", "Makasii ya kak", "Thanks a bunch kak",
+            "Kakak terbaikk", "Kamu the best kak", "Hatur nuhun kak", "Makasih udah belanja kak", "Thankss kak", "Suwun kak"
+        ];
+
+        const middles = [
+            "semoga suka terus yaa", "semoga cocok dan puas yaa", "ditunggu order selanjutnya ya", 
+            "jangan kapok belanja di sini ya", "semoga produknya bermanfaat", 
+            "seneng banget bisa nemenin hari kakak", "semoga bisa jadi favorit kakak", 
+            "ditunggu repeat-nya yaa", "semoga bisa jadi pilihan kakak terus", 
+            "kalau ada yang kurang, tinggal chat ya", "thank you udah percaya sama toko kita",
+            "ditunggu checkout-checkout selanjutnya 😄", "semoga harinya secerah produk dari kami", 
+            "happy banget dapet feedback positif kaya gini", "kakak keren banget", 
+            "makin semangat deh jualannya", "duh jadi melting, makasih ya", 
+            "ini bikin kita happy maksimal", "makasih supportnya ya", "semangat terus buat kamu juga"
+        ];
+
+        const emojis = [
+            "😊", "💖", "🙏", "😍", "🌟", "✨", "🥰", "😄", "💫", "🤗", "🫶", "🎉", "🔥", "😚", "😆", "❤️", "👍", "🎈", "💌", "😺"
+        ];
+
+        let generatedMessages = [];
+
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function getRandomEmojis(count = 2) {
+            const shuffled = [...emojis].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function generateSingleMessage() {
+            const opening = getRandomElement(openings);
+            const middle = getRandomElement(middles);
+            const selectedEmojis = getRandomEmojis(2);
+            return `${opening}! ${middle} ${selectedEmojis[0]} ${selectedEmojis[1]}`;
+        }
+
+        function generateMessages() {
+            const count = parseInt(document.getElementById('messageCount').value);
+            if (count < 1 || count > 500) {
+                alert('Jumlah pesan harus antara 1-500');
+                return;
+            }
+
+            generatedMessages = [];
+            const uniqueMessages = new Set();
+
+            // Generate messages hingga mencapai jumlah yang diminta
+            while (generatedMessages.length < count) {
+                const message = generateSingleMessage();
+                if (!uniqueMessages.has(message)) {
+                    uniqueMessages.add(message);
+                    generatedMessages.push(message);
+                }
+                
+                // Prevent infinite loop jika kombinasi terbatas
+                if (uniqueMessages.size >= count * 2) break;
+            }
+
+            displayMessages();
+            updateStats();
+        }
+
+        function displayMessages() {
+            const messageList = document.getElementById('messageList');
+            const resultContainer = document.getElementById('resultContainer');
+            
+            messageList.innerHTML = '';
+            
+            generatedMessages.forEach((message, index) => {
+                const messageItem = document.createElement('div');
+                messageItem.className = 'message-item';
+                messageItem.innerHTML = `
+                    <div class="message-text">${message}</div>
+                    <button class="btn copy-btn" onclick="copyMessage(${index})">
+                        📋 Copy
+                    </button>
+                `;
+                messageList.appendChild(messageItem);
+            });
+            
+            resultContainer.style.display = 'block';
+        }
+
+        function updateStats() {
+            const statsDiv = document.getElementById('stats');
+            const totalMessages = document.getElementById('totalMessages');
+            const uniqueMessages = document.getElementById('uniqueMessages');
+            
+            totalMessages.textContent = generatedMessages.length;
+            uniqueMessages.textContent = new Set(generatedMessages).size;
+            
+            statsDiv.style.display = 'flex';
+        }
+
+        function copyMessage(index) {
+            const message = generatedMessages[index];
+            navigator.clipboard.writeText(message).then(() => {
+                showNotification('Pesan berhasil di-copy!');
+            }).catch(() => {
+                // Fallback untuk browser yang tidak support clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = message;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Pesan berhasil di-copy!');
+            });
+        }
+
+        function copyAllMessages() {
+            const allMessages = generatedMessages.join('\n');
+            navigator.clipboard.writeText(allMessages).then(() => {
+                showNotification('Semua pesan berhasil di-copy!');
+            }).catch(() => {
+                // Fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = allMessages;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Semua pesan berhasil di-copy!');
+            });
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #28a745, #20c997);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                font-weight: 600;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Generate initial messages
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMessages();
+        });
+    </script>
+</body>
+</html>

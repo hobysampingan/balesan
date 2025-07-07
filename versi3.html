@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Balasan Positif</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-6 space-y-4">
+    <h1 class="text-2xl font-bold text-center text-gray-800">🎉 Balasan Positif Otomatis</h1>
+
+    <div class="flex flex-col gap-2">
+      <label class="font-medium text-gray-700">Pilih Gaya Balasan:</label>
+      <select id="toneSelector" class="p-2 border border-gray-300 rounded-md">
+        <option value="casual">🎈 Casual</option>
+        <option value="soft">🌷 Soft</option>
+        <option value="excited">🔥 Excited</option>
+      </select>
+    </div>
+
+    <div class="flex justify-between gap-4">
+      <button onclick="generateReply()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg shadow">
+        🎲 Generate
+      </button>
+      <button onclick="copyReply()" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg shadow">
+        📋 Copy
+      </button>
+    </div>
+
+    <div id="replyBox" class="bg-gray-100 text-gray-800 p-4 rounded-lg min-h-[80px] text-lg">
+      Pilih tone dan klik Generate dulu ya!
+    </div>
+  </div>
+
+  <script>
+    const replies = {
+      casual: {
+        openings: ["Makasih banyak ya kak", "Thank you kak", "Makasih loh kak", "Thanks banget kak", "Terima kasih ya", "Wahh makasih kak", "Thank youuu", "Makasii ya kak", "Seneng deh dapet feedback gini", "Kakak baik banget", "You’re awesome kak", "Hatur nuhun kak", "Suwun ya kak", "Thanks yaa", "Thank you so much kak", "Makasih supportnya ya kak", "Wahhh terharu", "Duhh kak makasih yaa", "Appreciate banget loh", "Salam hangat dari tim kami!"],
+        middleIntros: ["Semoga produknya cocok ya", "Semoga bermanfaat ya kak", "Semoga makin suka yaa", "Seneng banget bisa nemenin harimu", "Semoga jadi favorit ya", "Semoga belanja di sini bikin happy", "Semoga pas dan sesuai yaa", "Semoga cocok di hati ya kak", "Mudah-mudahan repeat order yaa", "Semoga pengalamannya menyenangkan", "Thanks udah percaya sama kami", "Semoga bisa nemenin hari-hari kakak", "Belanja di sini gak nyesel kan kak?", "Semoga produknya jadi andalan kakak", "Thank you udah kasih energi positif", "Seneng banget dapet feedback gini", "Semoga bikin hari kakak cerah terus", "Makasi udah support usaha kecil ini", "Belanja kakak tuh bikin kita semangat", "Doa terbaik buat kakak juga ya"],
+        middleEnds: ["ditunggu order berikutnya ya", "jangan kapok belanja di sini ya", "kabarin aja kalau ada yang mau ditanya", "semangat terus buat kakak juga ya!", "kalau ada saran boleh banget kasih ya", "kalau cocok, bisa direkomendasiin ya 😁", "tim kami happy banget loh", "seneng banget rasanya dapet vibe positif", "semoga bisa terus nemenin hari-hari kakak", "semangat jualannya juga ya kak", "makasih udah jadi pembeli yang manis", "jangan lupa mampir lagi ya kak", "kalau ada warna lain yang dicari tinggal chat", "boleh dong foto-fotoin pas dipakai 😄", "feedback kakak tuh ngangkat mood seharian", "semoga makin berkah belanjanya", "kakak luar biasa", "thank you sekali lagi ya kak", "see you di next checkout 😎", "produk ini jadi makin spesial karena kakak"],
+        emojis: ["😊", "💖", "🙏", "😍", "🌟", "✨", "🥰", "😄", "💫", "🤗", "🫶", "🎉", "🔥", "😚", "😆", "❤️", "👍", "🎈", "💌", "😁"]
+      },
+
+      soft: {
+        openings: ["Terima kasih banyak ya kak 🌹", "Thank you ya kak", "Kami sangat menghargai feedback-nya", "Sungguh senang menerima pesan ini", "Terima kasih atas kepercayaannya", "Kakak baik sekali", "Terima kasih ya sudah belanja", "Kami bersyukur punya pelanggan seperti kakak", "Makasih banyak ya kakak manis", "Hatur nuhun ya kak", "Kebaikanmu menyentuh hati kami", "Kami senang sekali dengan respon kakak", "Kami tersentuh loh kak", "Kakak luar biasa!", "Duh kak, makasih banget ya", "Thank you dari hati yang paling dalam", "Terima kasih sebesar-besarnya", "Salam hangat dari kami semua", "Kami doakan yang terbaik juga buat kakak", "Makasih kak, semoga harimu indah"],
+        middleIntros: ["Semoga produk kami memberi manfaat", "Semoga nyaman dan sesuai harapan", "Semoga kakak senang ya", "Semoga bisa menjadi bagian kecil dari hari kakak", "Senang bisa berbagi produk ini", "Semoga kakak merasa puas", "Kami selalu berusaha memberi yang terbaik", "Semoga ini jadi awal belanja yang menyenangkan", "Kami senang bisa melayani kakak", "Semoga bermanfaat dan membawa kebaikan", "Semoga produknya menemani hari-harimu", "Kami berharap ini bisa menjadi favorit kakak", "Semoga membawa senyum", "Semoga ringan di hati dan dompet juga hehe", "Semoga rejeki kakak lancar selalu", "Terima kasih atas kepercayaannya", "Kami senang kakak puas", "Semoga cocok ya kak", "Mudah-mudahan cocok terus ke depannya ya", "Semoga selalu dilimpahi kebahagiaan"],
+        middleEnds: ["jangan sungkan hubungi kami ya kak", "semoga kakak selalu dalam kebaikan", "kalau ada masukan, kami terbuka banget ya kak", "kami tunggu belanja berikutnya ya", "semoga bisa terus memberi yang terbaik", "terima kasih sudah menjadi bagian dari perjalanan kami", "semoga hubungan baik ini terus berlanjut", "kami doakan yang terbaik juga untuk kakak", "semoga rejekinya terus mengalir", "harapannya bisa terus dipercaya ya kak", "semoga sehat dan bahagia selalu", "semoga kami bisa terus memperbaiki diri", "terima kasih sudah membuat hari kami cerah", "kami sangat menghargai setiap feedback", "kami tunggu kehadiran kakak lagi", "semoga produk ini jadi teman baik kakak", "semoga yang terbaik menyertaimu kak", "semoga kamu selalu dikelilingi hal baik", "terima kasih dari lubuk hati terdalam", "kami senang banget loh kak"],
+        emojis: ["🌹", "🤝", "😊", "💖", "✨", "🤍", "🤊", "🌟", "😍", "🤎", "💘", "💕", "💖", "💜", "😘", "🌟", "🌺", "🤍", "🫶", "🌼"]
+      },
+
+      excited: {
+        openings: ["WAAHHH MAKASIH KAK!!!", "OMG THANK YOUU!!", "KEREN BANGET SIH KAK!!", "Super excited dapet feedback ini!", "Kakak luar biasa banget!", "Terima kasih kak, bikin semangat!!", "Thank you kak, YOU ROCK!", "Wuhuuu makasih ya kak!!", "Paketnya sampai, langsung dapet review manis!!", "Waaa super seneng!!", "Horee makasih yaa kak!!", "Duhh sampe jingkrak nih!!", "Kak keren banget sihh ❤️", "Makasih banyak banget pokoknya!!", "Love love love banget kak!", "Ahhh senangnyaaa!!", "Energinya kakak tuh bikin semangat!", "Berkat kakak, mood naik 1000%!", "SENENGNYA NGGA NANGGUNG!", "Mantapppp banget kak!"],
+        middleIntros: ["Feedback kayak gini tuh ngangkat semangat banget!", "Kami jadi makin semangat ngelayanin!", "Kakak beneran bikin hari kami cerah!", "Puas banget dapet review gini!", "Bener-bener mood booster banget loh!", "Seneng banget kak, serius deh!", "Kami semua heboh baca review kakak!", "Semoga produk kami bikin kakak makin happy!", "Senyum terus baca ini!", "Kakak bikin kita makin niat ngasih yg terbaik!", "Terharuuuuu banget!", "Kita semua baca bareng loh!", "Makasih udah bikin kami tersenyum!", "Pokoknya kakak amazing deh!", "Semoga next order makin seru!", "Gak sabar nunggu belanja berikutnya!", "Produk ini jadi punya cerita berkat kakak!", "Pokoknya cinta banget sama kakak!", "Ini bikin jualan makin semangat banget!", "Terima kasih, energi positifnya nyampe!"],
+        middleEnds: ["langsung pengen upload testimoni!", "jadi pengen kasih bonus!", "bener-bener bikin semangat!", "tim kita jadi semangat banget!", "semoga berkah terus buat kakak juga!", "ditunggu belanja seru berikutnya ya kak!", "jangan lupa checkout lagi yaa!", "didoain rejeki lancar terus ya kak!", "tim packing sampe senyum-senyum!", "semoga kita bisa terus kasih yang terbaik!", "udah kayak dapet kado balasan ini!", "pokoknya vibes-nya positif banget!", "makasih udah jadi mood booster hari ini!", "produk ini laku keras gegara kakak!", "semoga makin betah belanja di sini!", "salam sayang dari kami semua!", "kakak emang beda!", "ditunggu next vibes-nya ya!", "terimakasih karena udah jadi bagian cerita ini!", "GA ADA DUANYA DEH KAK!"],
+        emojis: ["🚀", "🎉", "💖", "🔥", "🏆", "🌟", "🤩", "😁", "👏", "❤️", "😍", "🥳", "🎉", "🙌", "🤟", "🤍", "🌟", "😂", "🌚", "🌼"]
+      }
+    };
+
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateReply() {
+      const tone = document.getElementById("toneSelector").value;
+      const data = replies[tone] || replies.casual;
+      const opening = getRandom(data.openings);
+      const intro = getRandom(data.middleIntros);
+      const end = getRandom(data.middleEnds);
+      const emoji = getRandom(data.emojis);
+      const reply = `${opening}. ${intro}, ${end} ${emoji}`;
+      document.getElementById("replyBox").innerText = reply;
+    }
+
+    function copyReply() {
+      const text = document.getElementById("replyBox").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Balasan berhasil disalin!");
+      });
+    }
+  </script>
+</body>
+</html>

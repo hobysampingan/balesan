@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balasan Positif Otomatis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center p-6 font-sans">
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-6">
+    <h1 class="text-2xl font-bold text-center mb-4 text-gray-800">🎉 Auto Balasan Positif 🎉</h1>
+    
+    <div class="flex justify-between items-center mb-4">
+      <button onclick="generateReply()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow">
+        🎲 Generate Balasan
+      </button>
+      <button onclick="copyReply()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl shadow">
+        📋 Copy
+      </button>
+    </div>
+    
+    <div id="replyBox" class="border border-gray-300 rounded-lg p-4 bg-gray-100 text-lg text-gray-700 min-h-[80px]">
+      Klik "Generate Balasan" dulu ya 😊
+    </div>
+  </div>
+
+  <script>
+    const openings = [
+      "Makasih banyak ya, kak!", "Thank you, kak!", "Terima kasih, kak!",
+      "Wahh makasih banget!", "Seneng deh dapet feedback begini~",
+      "Terima kasih yaa!", "Thank youuuu~", "Makasii ya kak!",
+      "Thanks a bunch, kak!", "Kakak terbaik deh!", "You’re the best, kak!",
+      "Hatur nuhun, kak!", "Makasih udah belanja di sini!",
+      "Thanks banget ya, kak!", "Suwun, kak!", "Appreciate it banget, kak!"
+    ];
+
+    const middles = [
+      "Semoga suka terus yaa 💕", "Semoga cocok dan puas yaa~",
+      "Ditunggu order selanjutnya ya 😊", "Jangan kapok belanja di sini yaa!",
+      "Semoga produknya bermanfaat ya, kak", 
+      "Seneng banget bisa nemenin hari-harimu 🥰", 
+      "Semoga jadi salah satu favoritmu yaa!", 
+      "Repeat order-nya ditunggu nih 😄", 
+      "Makasih udah percaya sama kami 🤗", 
+      "Kalau ada apa-apa tinggal chat aja ya!", 
+      "Semoga hari kakak secerah paket dari kita ✨",
+      "Feedback kayak gini tuh bikin happy banget 😍", 
+      "Kakak keren banget sih 💫", 
+      "Jadi makin semangat jualannya!", 
+      "Duhh melting, makasih yaa 😚", 
+      "Support-nya berharga banget buat kami 🙏", 
+      "Semangat terus juga buat kakak ya!", 
+      "Pesenan kamu tuh bikin kami semangat 1000% 🔥", 
+      "Seneng bisa kasih yang terbaik buat kamu 💖",
+      "Thanks lagi udah ngasih vibes positif 🎉"
+    ];
+
+    const emojis = [
+      "😊", "💖", "🙏", "😍", "🌟", "✨", "🥰", "😄", "💫", "🤗",
+      "🫶", "🎉", "🔥", "😚", "😆", "❤️", "👍", "🎈", "💌", "😺",
+      "💐", "🎁", "📦", "🧡", "😁"
+    ];
+
+    function getRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateReply() {
+      const reply = `${getRandom(openings)} ${getRandom(middles)} ${getRandom(emojis)}`;
+      document.getElementById("replyBox").innerText = reply;
+    }
+
+    function copyReply() {
+      const text = document.getElementById("replyBox").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Balasan berhasil disalin!");
+      });
+    }
+  </script>
+</body>
+</html>
